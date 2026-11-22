@@ -1,0 +1,884 @@
+{
+ "_about": "The records of the three material-contradiction questions that paused the official devA run (devA-R3, 7 November 2026), copied from the after backup app-after-official-devA-resume-091432.db (SHA-256 dbd3bec737f3d452cbcafde664f0bb877dda3ae8111f0a1eacf0ab24337c397d) for Phase 17 package 17.2: the claims as stored (status is the derived status at the backup; verdict the verifier's), their sources, every claim_conflicts row of project devA, the must_address items of the three decisions' stored packs and the three questions.",
+ "claims": [
+  {
+   "id": "devA.CLM-047",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Neon",
+   "attribute": "encryption_at_rest",
+   "value": "AES-256 on NVMe SSD volumes",
+   "kind": "capability",
+   "text": "Neon encrypts inactive data on NVMe instance storage using an AES-256 block cipher implemented in a hardware module on the instance.",
+   "source_id": "devA.SRC-051",
+   "product_id": "neon-neon",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Neon stores inactive data in NVMe SSD volumes. The data on NVMe instance storage is encrypted using an `AES-256` block cipher implemented in a hardware module on the instance.",
+   "source_version": "sha256:71bab8354252ef12950722bd88832ac20413d6256de9463a2263c1e961d122bc",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-090",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Neon",
+   "attribute": "encryption at rest",
+   "value": "AES-256 encryption at storage layer with AWS KMS",
+   "kind": "capability",
+   "text": "Neon enforces storage-level encryption using AES-256 with keys managed in AWS KMS.",
+   "source_id": "devA.SRC-055",
+   "product_id": "neon-neon",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "All data is encrypted using AES-256 at the storage layer. Neon manages these keys with AWS Key Management Service (KMS).",
+   "source_version": "sha256:5e6e46feef87fae3adc025df12c6e452abee849f5a1d0234553c8beb8d23f9c1",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-1018",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Databricks Lakebase",
+   "attribute": "database type",
+   "value": "fully managed Postgres database integrated into the Databricks platform",
+   "kind": "capability",
+   "text": "Lakebase is a fully managed Postgres database integrated into the Databricks platform.",
+   "source_id": "devA.SRC-145",
+   "product_id": "databricks-lakebase",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Lakebase is a fully managed Postgres database integrated into the Databricks platform.",
+   "source_version": "sha256:986d391c96532423bd99d1793de310d7e77c1dfce15488b667ce168cfb08375a",
+   "verified_requirement_version": 1,
+   "decision_subject": "itinerary_storage"
+  },
+  {
+   "id": "devA.CLM-1104",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Fly.io billing",
+   "attribute": "invoice_waiver_threshold",
+   "value": "under $5 waived",
+   "kind": "price",
+   "text": "Fly.io waives invoices under $5.",
+   "source_id": "devA.SRC-195",
+   "product_id": "fly-io-fly-io",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Invoices under $5 are waived.",
+   "source_version": "sha256:55ee94656a785348b4f294928a22713c19eec6c11a7b11f4ed24769f7cf48678",
+   "verified_requirement_version": 1,
+   "decision_subject": "web_hosting"
+  },
+  {
+   "id": "devA.CLM-1124",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Fly.io billing",
+   "attribute": "invoice_waiver_threshold",
+   "value": "under $5",
+   "kind": "price",
+   "text": "Fly.io waives invoices under $5.",
+   "source_id": "devA.SRC-195",
+   "product_id": "fly-io-fly-io",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Invoices under $5 are waived",
+   "source_version": "sha256:55ee94656a785348b4f294928a22713c19eec6c11a7b11f4ed24769f7cf48678",
+   "verified_requirement_version": 1,
+   "decision_subject": "web_hosting"
+  },
+  {
+   "id": "devA.CLM-165",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Supabase",
+   "attribute": "encryption_at_rest",
+   "value": "AES-256",
+   "kind": "capability",
+   "text": "Supabase encrypts data at rest using AES-256 and in transit via TLS.",
+   "source_id": "devA.SRC-113",
+   "product_id": "supabase-supabase",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "All customer data is encrypted at rest with AES-256",
+   "source_version": "sha256:693d37b2ca01e29feae24eb3be921e8bafb356ca621afc0c8eb2bef3832db430",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-268",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Vercel Hobby plan",
+   "attribute": "commercial deployment allowance",
+   "value": "personal, non-commercial use only",
+   "kind": "license",
+   "text": "Vercel's Hobby plan is restricted to personal, non-commercial use.",
+   "source_id": "devA.SRC-066",
+   "product_id": "vercel-vercel",
+   "product_version": "",
+   "conditions_json": "[\"Hobby plan\"]",
+   "quote": "Our Hobby plan is for personal, non-commercial use.",
+   "source_version": "sha256:22a27af56dc0da1e9d2430bbf74a24d65c1c8ca387aba59a9722119d83cdcac8",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_hosting"
+  },
+  {
+   "id": "devA.CLM-306",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Vercel Hobby plan",
+   "attribute": "commercial deployment allowance",
+   "value": "non-commercial, personal use only",
+   "kind": "license",
+   "text": "The Hobby plan restricts users to non-commercial, personal use only.",
+   "source_id": "devA.SRC-067",
+   "product_id": "vercel-vercel",
+   "product_version": "",
+   "conditions_json": "[\"Hobby plan\"]",
+   "quote": "As stated in the fair use guidelines, the Hobby plan restricts users to non-commercial, personal use only.",
+   "source_version": "sha256:cd0f4d5dc9f044f0d1cb111d0213090e94fba74e981ef2fb3f46b07bb8bc816b",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_hosting"
+  },
+  {
+   "id": "devA.CLM-369",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Supabase",
+   "attribute": "encryption_at_rest",
+   "value": "encrypted at rest and in transit",
+   "kind": "capability",
+   "text": "Supabase encrypts data at rest and in transit.",
+   "source_id": "devA.SRC-059",
+   "product_id": "supabase-supabase",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Data is encrypted at rest and in transit by Supabase.",
+   "source_version": "sha256:2f7823973744f6aca6f8a3a4a90483d4d484f052ac2b668af2c5dc86314bac01",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-646",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Vercel Hobby Plan",
+   "attribute": "commercial deployment allowance",
+   "value": "personal, non-commercial projects only",
+   "kind": "license",
+   "text": "Vercel Hobby plan is for personal, non-commercial projects.",
+   "source_id": "devA.SRC-133",
+   "product_id": "vercel-vercel",
+   "product_version": "",
+   "conditions_json": "[\"Hobby plan\"]",
+   "quote": "Vercel costs $0 on Hobby for personal, non-commercial projects, and $20 a month on Pro for the platform fee",
+   "source_version": "sha256:7af6ddeb58ebe1b4298e0496dbb3732b49a765675ffdd9c498b124b62190b4a4",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_hosting"
+  },
+  {
+   "id": "devA.CLM-691",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Neon",
+   "attribute": "encryption at rest",
+   "value": "AES-256 at the storage layer managed with AWS Key Management Service (KMS)",
+   "kind": "capability",
+   "text": "In Neon, all data is encrypted at rest using AES-256 at the storage layer, with keys managed via AWS Key Management Service (KMS).",
+   "source_id": "devA.SRC-114",
+   "product_id": "neon-neon",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "All data is encrypted using AES-256 at the storage layer. Neon manages these keys with AWS Key Management Service (KMS).",
+   "source_version": "sha256:fd0fe63962cc72381609b6ff7b6713a66efeeebf3c8d2d5732d6e56e8b75b49b",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-696",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API (New)",
+   "attribute": "pricing_and_free_cap",
+   "value": "Free usage cap: 10,000 events; Cap - 100,000: $5.00 per 1,000 events",
+   "kind": "price",
+   "text": "Places API (New) Place Details Essentials SKU provides a free usage cap of 10,000 monthly events and costs $5.00 per 1,000 events for usage from cap to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform",
+   "product_version": "",
+   "conditions_json": "[\"Global pricing list (not India)\", \"Monthly event aggregation across projects linked to customer billing account\"]",
+   "quote": "| Places API Place Details Essentials 6E05-E1C3-8D85 | 10,000 | $5.00 | $4.00 | $3.00 | $1.50 | $0.38 |",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-697",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API (New)",
+   "attribute": "pricing_and_free_cap",
+   "value": "Free usage cap: 5,000 events; Cap - 100,000: $17.00 per 1,000 events",
+   "kind": "price",
+   "text": "Places API (New) Place Details Pro SKU has a free usage cap of 5,000 monthly events and costs $17.00 per 1,000 events from cap to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform",
+   "product_version": "",
+   "conditions_json": "[\"Global pricing list (not India)\", \"Monthly event aggregation across projects linked to customer billing account\"]",
+   "quote": "| Places API Place Details Pro 4ED6-464A-2AFC | 5,000 | $17.00 | $13.60 | $10.20 | $5.10 | $1.28 |",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-698",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API (New)",
+   "attribute": "pricing_and_free_cap",
+   "value": "Free usage cap: 1,000 events; Cap - 100,000: $20.00 per 1,000 events",
+   "kind": "price",
+   "text": "Places API (New) Place Details Enterprise SKU has a free usage cap of 1,000 monthly events and costs $20.00 per 1,000 events from cap to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform",
+   "product_version": "",
+   "conditions_json": "[\"Global pricing list (not India)\", \"Monthly event aggregation across projects linked to customer billing account\"]",
+   "quote": "| Places API Place Details Enterprise 2D9A-3DE0-3766 | 1,000 | $20.00 | $16.00 | $12.00 | $6.00 | $1.51 |",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-803",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Neon",
+   "attribute": "encryption at rest",
+   "value": "AES-256 encryption at rest across all storage layers",
+   "kind": "capability",
+   "text": "Neon uses AES-256 encryption at rest across all layers of its distributed storage for all databases.",
+   "source_id": "devA.SRC-150",
+   "product_id": "neon-neon",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Neon also uses AES-256 encryption at rest for all databases. Neon's serverless PostgreSQL architecture stores data across distributed storage, and every layer of that storage is encrypted.",
+   "source_version": "sha256:58ff487711d18cf39a219734664977eea564bb4d5e19dc73b26cca120587680a",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-851",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Neon",
+   "attribute": "encryption_at_rest",
+   "value": "AES-256",
+   "kind": "capability",
+   "text": "Neon provides AES-256 encryption at rest and TLS 1.2 or higher in transit.",
+   "source_id": "devA.SRC-156",
+   "product_id": "neon-neon",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "AES-256 encryption at rest and TLS 1.2 or higher in transit, with role-based access to production systems.",
+   "source_version": "sha256:588c11e78062aea2809646f5c5de6934c923feccefb4a94f4c129e24d82710d5",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-909",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Supabase",
+   "attribute": "encryption at rest",
+   "value": "AES-256",
+   "kind": "capability",
+   "text": "Supabase data is encrypted at rest with AES-256 and in transit via TLS.",
+   "source_id": "devA.SRC-036",
+   "product_id": "supabase-supabase",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Supabase is SOC 2 Type 2 compliant and ISO 27001 certified, with data \"encrypted at rest with AES-256 and in transit via TLS\".",
+   "source_version": "sha256:76c3c5b26c42aabfef4632bf1d6a7caa96b0eec2eca2bdc654665742bf6e610a",
+   "verified_requirement_version": 1,
+   "decision_subject": "itinerary_storage"
+  },
+  {
+   "id": "devA.CLM-962",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Databricks Lakebase",
+   "attribute": "database_type",
+   "value": "Fully-managed Postgres transactional database for serving data and features to support applications built on Databricks",
+   "kind": "capability",
+   "text": "Databricks Lakebase is a fully-managed Postgres transactional database for serving data and features to support applications built on Databricks.",
+   "source_id": "devA.SRC-141",
+   "product_id": "databricks-lakebase",
+   "product_version": "",
+   "conditions_json": "[]",
+   "quote": "Fully-managed Postgres transactional database for serving data and features to support applications built on Databricks.",
+   "source_version": "sha256:23be7f23820e2cc8603ef37f864556fa0bb8e7e674140173cc5f524e592fca86",
+   "verified_requirement_version": 1,
+   "decision_subject": "managed_database"
+  },
+  {
+   "id": "devA.CLM-981",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API (New)",
+   "attribute": "pricing_and_free_cap",
+   "value": "free usage cap: 10,000 events; cap - 100,000: $2.83 per 1,000 events",
+   "kind": "price",
+   "text": "Google Maps Platform Places API (New) Autocomplete Requests SKU has a free usage cap of 10,000 monthly events and costs $2.83 per 1,000 events for usage up to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform-places-api-new",
+   "product_version": "",
+   "conditions_json": "[\"Cap - 100,000 monthly events\", \"Prices in USD\"]",
+   "quote": "Autocomplete Requests 4EF4-B17C-B31A | 10,000 | $2.83",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-982",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API (New)",
+   "attribute": "pricing_and_free_cap",
+   "value": "free usage cap: 1,000 events; cap - 100,000: $40.00 per 1,000 events",
+   "kind": "price",
+   "text": "Google Maps Platform Places API (New) Nearby Search Enterprise + Atmosphere SKU has a free usage cap of 1,000 monthly events and costs $40.00 per 1,000 events for usage up to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform-places-api-new",
+   "product_version": "",
+   "conditions_json": "[\"Cap - 100,000 monthly events\", \"Prices in USD\"]",
+   "quote": "Places API Nearby Search Enterprise + Atmosphere F20E-7034-0EF7 | 1,000 | $40.00",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-984",
+   "status": "supported",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API Legacy",
+   "attribute": "pricing_and_free_cap",
+   "value": "free usage cap: 1,000 events; cap - 100,000: $3.00 per 1,000 events",
+   "kind": "price",
+   "text": "Google Maps Platform Places API Legacy Contact Data SKU has a free usage cap of 1,000 monthly events and costs $3.00 per 1,000 events for usage up to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform-places-api-legacy",
+   "product_version": "",
+   "conditions_json": "[\"Cap - 100,000 monthly events\", \"Prices in USD\"]",
+   "quote": "Contact Data F095-CD01-81B2 | 1,000 | $3.00",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  },
+  {
+   "id": "devA.CLM-985",
+   "status": "conflicting",
+   "verdict": "supported",
+   "scope_status": "in_scope",
+   "subject": "Google Maps Platform Places API Legacy",
+   "attribute": "pricing_and_free_cap",
+   "value": "free usage cap: 1,000 events; cap - 100,000: $5.00 per 1,000 events",
+   "kind": "price",
+   "text": "Google Maps Platform Places API Legacy Atmosphere Data SKU has a free usage cap of 1,000 monthly events and costs $5.00 per 1,000 events for usage up to 100,000 events.",
+   "source_id": "devA.SRC-108",
+   "product_id": "google-google-maps-platform-places-api-legacy",
+   "product_version": "",
+   "conditions_json": "[\"Cap - 100,000 monthly events\", \"Prices in USD\"]",
+   "quote": "Atmosphere Data D63D-5CC5-302A | 1,000 | $5.00",
+   "source_version": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "verified_requirement_version": 1,
+   "decision_subject": "routing_and_places_service"
+  }
+ ],
+ "sources": [
+  {
+   "id": "devA.SRC-036",
+   "url": "https://theproofdesk.com/supabase-review",
+   "title": "Supabase Review 2026: Real Pro Plan Costs, Free Tier Pauses and the Fine Print | The Proof Desk",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:38.013889+00:00",
+   "published_at": "2026-10-27T00:00:00+00:00",
+   "content_hash": "sha256:76c3c5b26c42aabfef4632bf1d6a7caa96b0eec2eca2bdc654665742bf6e610a",
+   "freshness": "policy",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-051",
+   "url": "https://neon.tech/docs/security/security-overview",
+   "title": "Security overview - Neon Docs",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T05:06:07.309253Z",
+   "published_at": "2026-10-30T00:00:00Z",
+   "content_hash": "sha256:71bab8354252ef12950722bd88832ac20413d6256de9463a2263c1e961d122bc",
+   "freshness": "technical",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-055",
+   "url": "https://neon.tech/unify?a=a3f91190-2eb2-45f2-a493-2481bf3a142f&n=guides%2Fhipaa-compliant-applications",
+   "title": "Building HIPAA-compliant applications on Neon",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T05:06:07.309761Z",
+   "published_at": null,
+   "content_hash": "sha256:5e6e46feef87fae3adc025df12c6e452abee849f5a1d0234553c8beb8d23f9c1",
+   "freshness": "technical",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-059",
+   "url": "https://supabase.com/docs/guides/deployment/shared-responsibility-model",
+   "title": "",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T05:06:13.390039Z",
+   "published_at": null,
+   "content_hash": "sha256:2f7823973744f6aca6f8a3a4a90483d4d484f052ac2b668af2c5dc86314bac01",
+   "freshness": "technical",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-066",
+   "url": "https://vercel.com/pricing",
+   "title": "Vercel Pricing",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:08:40.955726+00:00",
+   "published_at": null,
+   "content_hash": "sha256:22a27af56dc0da1e9d2430bbf74a24d65c1c8ca387aba59a9722119d83cdcac8",
+   "freshness": "volatile",
+   "cache_status": "livecrawl"
+  },
+  {
+   "id": "devA.SRC-067",
+   "url": "https://vercel.com/docs/plans/hobby",
+   "title": "Vercel Hobby Plan",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:08:42.429510+00:00",
+   "published_at": "2026-09-14T00:00:00Z",
+   "content_hash": "sha256:cd0f4d5dc9f044f0d1cb111d0213090e94fba74e981ef2fb3f46b07bb8bc816b",
+   "freshness": "volatile",
+   "cache_status": "livecrawl"
+  },
+  {
+   "id": "devA.SRC-108",
+   "url": "https://developers.google.com/maps/billing-and-pricing/pricing",
+   "title": "Google Maps Platform core services pricing list  |  Pricing and Billing  |  Google for Developers",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:47.311402+00:00",
+   "published_at": null,
+   "content_hash": "sha256:e9dd3de3404e80bff8a390ae6dcebb415032e4ec031689be8b47e0c12f6de2e3",
+   "freshness": "volatile",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-113",
+   "url": "https://supabase.com/security",
+   "title": "Security at Supabase",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:38.012840+00:00",
+   "published_at": null,
+   "content_hash": "sha256:693d37b2ca01e29feae24eb3be921e8bafb356ca621afc0c8eb2bef3832db430",
+   "freshness": "policy",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-114",
+   "url": "https://neon.com/guides/hipaa-compliant-applications",
+   "title": "Building HIPAA-compliant applications on Neon - Neon Guides",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:57.252624+00:00",
+   "published_at": null,
+   "content_hash": "sha256:fd0fe63962cc72381609b6ff7b6713a66efeeebf3c8d2d5732d6e56e8b75b49b",
+   "freshness": "technical",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-133",
+   "url": "https://fly.io/learn/paas-pricing-compared",
+   "title": "PaaS Pricing Compared: What Vercel, Render and Heroku Actually Cost",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T12:30:03.976373+00:00",
+   "published_at": null,
+   "content_hash": "sha256:7af6ddeb58ebe1b4298e0496dbb3732b49a765675ffdd9c498b124b62190b4a4",
+   "freshness": "volatile",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-141",
+   "url": "https://www.databricks.com/product/pricing/lakebase",
+   "title": "Lakebase | Databricks",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T12:44:38.850958Z",
+   "published_at": null,
+   "content_hash": "sha256:23be7f23820e2cc8603ef37f864556fa0bb8e7e674140173cc5f524e592fca86",
+   "freshness": "volatile",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-145",
+   "url": "https://learn.microsoft.com/en-us/azure/databricks/oltp/projects/",
+   "title": "Lakebase Postgres - Azure Databricks",
+   "tier": 2,
+   "retrieved_at": "2026-11-03T12:44:38.851061Z",
+   "published_at": null,
+   "content_hash": "sha256:986d391c96532423bd99d1793de310d7e77c1dfce15488b667ce168cfb08375a",
+   "freshness": "volatile",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-150",
+   "url": "https://blog.vibecoder.me/database-security-encryption-at-rest-in-transit",
+   "title": "Database Encryption at Rest and in Transit for Vibe-Coded Apps - What encryption your database provider handles automatically and what you still need to configure yourself - Vibe Coder Blog",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:38.013286Z",
+   "published_at": "2026-04-05T00:00:00Z",
+   "content_hash": "sha256:58ff487711d18cf39a219734664977eea564bb4d5e19dc73b26cca120587680a",
+   "freshness": "policy",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-156",
+   "url": "https://companyview.io/software/neon/summary",
+   "title": "Neon Summary & Analysis | CompanyView",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:13:40.405988Z",
+   "published_at": null,
+   "content_hash": "sha256:588c11e78062aea2809646f5c5de6934c923feccefb4a94f4c129e24d82710d5",
+   "freshness": "technical",
+   "cache_status": "unknown"
+  },
+  {
+   "id": "devA.SRC-195",
+   "url": "https://convika.com/compare/fly-io-free-tier/",
+   "title": "Is Fly.io free? No free tier: the trial and what apps cost",
+   "tier": 2,
+   "retrieved_at": "2026-11-07T04:14:16.622894+00:00",
+   "published_at": "2026-11-05T04:14:04Z",
+   "content_hash": "sha256:55ee94656a785348b4f294928a22713c19eec6c11a7b11f4ed24769f7cf48678",
+   "freshness": "volatile",
+   "cache_status": "unknown"
+  }
+ ],
+ "conflicts": [
+  {
+   "conflict_key": "databricks-lakebase@:database type",
+   "claim_ids": [
+    "devA.CLM-1018",
+    "devA.CLM-962"
+   ],
+   "status": "settled",
+   "preferred_claim_id": "devA.CLM-962",
+   "reason": "the vendor's own page preferred over third-party pages: devA.CLM-962 on databricks.com, read 2026-11-03T12:44:38",
+   "run_id": "devA-R3",
+   "created_at": "2026-11-07T04:30:21.306Z"
+  },
+  {
+   "conflict_key": "fly-io-fly-io@:invoice waiver threshold [billing]",
+   "claim_ids": [
+    "devA.CLM-1104",
+    "devA.CLM-1124"
+   ],
+   "status": "open",
+   "preferred_claim_id": "devA.CLM-1104",
+   "reason": "tie: 2 claims of equal standing read at the same time (2026-11-07T04:14:16) state different values; the question stays conflicting; no source of this fact is on an official host of the vendor, so the vendor's-own-page step is skipped",
+   "run_id": "devA-R3",
+   "created_at": "2026-11-07T04:35:44.043Z"
+  },
+  {
+   "conflict_key": "google-google-maps-platform-places-api-legacy@:pricing and free cap [legacy] {cap 100000 monthly events; prices in usd}",
+   "claim_ids": [
+    "devA.CLM-984",
+    "devA.CLM-985"
+   ],
+   "status": "open",
+   "preferred_claim_id": "devA.CLM-984",
+   "reason": "tie: 2 claims of equal standing read at the same time (2026-11-07T04:13:47) state different values; the question stays conflicting",
+   "run_id": "devA-R3",
+   "created_at": "2026-11-07T04:28:48.476Z"
+  },
+  {
+   "conflict_key": "google-google-maps-platform-places-api-new@:pricing and free cap {cap 100000 monthly events; prices in usd}",
+   "claim_ids": [
+    "devA.CLM-981",
+    "devA.CLM-982"
+   ],
+   "status": "open",
+   "preferred_claim_id": "devA.CLM-981",
+   "reason": "tie: 2 claims of equal standing read at the same time (2026-11-07T04:13:47) state different values; the question stays conflicting",
+   "run_id": "devA-R3",
+   "created_at": "2026-11-07T04:28:48.016Z"
+  },
+  {
+   "conflict_key": "google-google-maps-platform@:pricing and free cap [new places] {global pricing list not india; monthly event aggregation across projects linked to customer billing account}",
+   "claim_ids": [
+    "devA.CLM-696",
+    "devA.CLM-697",
+    "devA.CLM-698"
+   ],
+   "status": "open",
+   "preferred_claim_id": "devA.CLM-696",
+   "reason": "tie: 3 claims of equal standing read at the same time (2026-11-03T12:13:43) state different values; the question stays conflicting",
+   "run_id": "devA-R2",
+   "created_at": "2026-11-03T12:32:07.387Z"
+  },
+  {
+   "conflict_key": "neon-neon@:encryption at rest",
+   "claim_ids": [
+    "devA.CLM-047",
+    "devA.CLM-090",
+    "devA.CLM-691",
+    "devA.CLM-803",
+    "devA.CLM-851"
+   ],
+   "status": "settled",
+   "preferred_claim_id": "devA.CLM-691",
+   "reason": "the vendor's own page preferred over third-party pages: devA.CLM-691 on neon.com, read 2026-11-07T04:13:57",
+   "run_id": "devA-R1",
+   "created_at": "2026-11-03T05:11:33.263Z"
+  },
+  {
+   "conflict_key": "openai-gpt-4o-mini@:context window",
+   "claim_ids": [
+    "devA.CLM-1027",
+    "devA.CLM-371",
+    "devA.CLM-637"
+   ],
+   "status": "settled",
+   "preferred_claim_id": "devA.CLM-637",
+   "reason": "no source of this fact is on an official host of the vendor, so the vendor's-own-page step is skipped; the newest read preferred: devA.CLM-637 read 2026-11-07T04:07:57",
+   "run_id": "devA-R2",
+   "created_at": "2026-11-03T12:28:30.024Z"
+  },
+  {
+   "conflict_key": "supabase-supabase@:encryption at rest",
+   "claim_ids": [
+    "devA.CLM-165",
+    "devA.CLM-369",
+    "devA.CLM-909"
+   ],
+   "status": "settled",
+   "preferred_claim_id": "devA.CLM-165",
+   "reason": "the vendor's own page preferred over third-party pages: devA.CLM-165 on supabase.com, read 2026-11-07T04:13:38",
+   "run_id": "devA-R1",
+   "created_at": "2026-11-03T05:23:12.369Z"
+  },
+  {
+   "conflict_key": "vercel-vercel@:commercial deployment allowance [hobby] {hobby plan}",
+   "claim_ids": [
+    "devA.CLM-268",
+    "devA.CLM-306",
+    "devA.CLM-646"
+   ],
+   "status": "settled",
+   "preferred_claim_id": "devA.CLM-306",
+   "reason": "the vendor's own page preferred over third-party pages: devA.CLM-306 on vercel.com, read 2026-11-07T04:08:42",
+   "run_id": "devA-R2",
+   "created_at": "2026-11-03T12:29:43.763Z"
+  }
+ ],
+ "must_address": {
+  "devA.DEC-011": {
+   "subject": "routing_and_places_service",
+   "must_address": [
+    {
+     "pack": "Google Maps Platform",
+     "kind": "conflict",
+     "conflict_key": "google-google-maps-platform@:pricing and free cap [new places] {global pricing list not india; monthly event aggregation across projects linked to customer billing account}",
+     "claim_ids": [
+      "devA.CLM-696",
+      "devA.CLM-697",
+      "devA.CLM-698"
+     ],
+     "about": "pricing_and_free_cap",
+     "values": [
+      "Free usage cap: 1,000 events; Cap - 100,000: $20.00 per 1,000 events",
+      "Free usage cap: 10,000 events; Cap - 100,000: $5.00 per 1,000 events",
+      "Free usage cap: 5,000 events; Cap - 100,000: $17.00 per 1,000 events"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Google Maps Platform Places API Legacy",
+     "kind": "conflict",
+     "conflict_key": "google-google-maps-platform-places-api-legacy@:pricing and free cap [legacy] {cap 100000 monthly events; prices in usd}",
+     "claim_ids": [
+      "devA.CLM-984",
+      "devA.CLM-985"
+     ],
+     "about": "pricing_and_free_cap",
+     "values": [
+      "free usage cap: 1,000 events; cap - 100,000: $3.00 per 1,000 events",
+      "free usage cap: 1,000 events; cap - 100,000: $5.00 per 1,000 events"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Google Maps Platform Places API New",
+     "kind": "conflict",
+     "conflict_key": "google-google-maps-platform-places-api-new@:pricing and free cap {cap 100000 monthly events; prices in usd}",
+     "claim_ids": [
+      "devA.CLM-981",
+      "devA.CLM-982"
+     ],
+     "about": "pricing_and_free_cap",
+     "values": [
+      "free usage cap: 1,000 events; cap - 100,000: $40.00 per 1,000 events",
+      "free usage cap: 10,000 events; cap - 100,000: $2.83 per 1,000 events"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    }
+   ]
+  },
+  "devA.DEC-014": {
+   "subject": "itinerary_storage",
+   "must_address": [
+    {
+     "pack": "Databricks Lakebase",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-1018"
+     ],
+     "about": "database type",
+     "values": [
+      "fully managed Postgres database integrated into the Databricks platform"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Neon",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-803"
+     ],
+     "about": "encryption at rest",
+     "values": [
+      "AES-256 encryption at rest across all storage layers"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Neon",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-851"
+     ],
+     "about": "encryption_at_rest",
+     "values": [
+      "AES-256"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Supabase",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-909"
+     ],
+     "about": "encryption at rest",
+     "values": [
+      "AES-256"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    }
+   ]
+  },
+  "devA.DEC-015": {
+   "subject": "web_hosting",
+   "must_address": [
+    {
+     "pack": "Fly Io Fly Io",
+     "kind": "conflict",
+     "conflict_key": "fly-io-fly-io@:invoice waiver threshold [billing]",
+     "claim_ids": [
+      "devA.CLM-1104",
+      "devA.CLM-1124"
+     ],
+     "about": "invoice_waiver_threshold",
+     "values": [
+      "under $5",
+      "under $5 waived"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Vercel",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-268"
+     ],
+     "about": "commercial deployment allowance",
+     "values": [
+      "personal, non-commercial use only"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    },
+    {
+     "pack": "Vercel",
+     "kind": "conflict",
+     "conflict_key": "",
+     "claim_ids": [
+      "devA.CLM-646"
+     ],
+     "about": "commercial deployment allowance",
+     "values": [
+      "personal, non-commercial projects only"
+     ],
+     "note": "two sources, or one source twice, give different values for this attribute of this product version; both claims are shown, neither is support"
+    }
+   ]
+  }
+ },
+ "questions": [
+  {
+   "id": "devA.Q-012",
+   "kind": "contradiction",
+   "status": "answered",
+   "text": "Decision devA.DEC-011 (routing_and_places_service) is blocked on a material contradiction: the comparison did not address a material contradiction about Google Maps Platform on pricing and free cap (devA.CLM-696, devA.CLM-697, devA.CLM-698): the sources give Free usage cap: 1,000 events; Cap - 100,000: $20.00 per 1,000 events and Free usage cap: 10,000 events; Cap - 100,000: $5.00 per 1,000 events and Free usage cap: 5,000 events; Cap - 100,000: $17.00 per 1,000 events; the comparison did not address a material contradiction about Google Maps Platform Places API Legacy on pricing and free cap (devA.CLM-984, devA.CLM-985): the sources give free usage cap: 1,000 events; cap - 100,000:. Answer open to leave the decision open (the plan states the conflict and the check that settles it), or a note on which source to trust; the note is recorded with the decision, and the conflict is settled by evidence, never by the note."
+  },
+  {
+   "id": "devA.Q-013",
+   "kind": "contradiction",
+   "status": "answered",
+   "text": "Decision devA.DEC-014 (itinerary_storage) is blocked on a material contradiction: the comparison did not address a material contradiction about Databricks Lakebase on database type (devA.CLM-1018): the sources give fully managed Postgres database integrated into the Databricks platform; the comparison did not address a material contradiction about Neon on encryption at rest (devA.CLM-803): the sources give AES-256 encryption at rest across all storage layers. Answer open to leave the decision open (the plan states the conflict and the check that settles it), or a note on which source to trust; the note is recorded with the decision, and the conflict is settled by evidence, never by the note."
+  },
+  {
+   "id": "devA.Q-014",
+   "kind": "contradiction",
+   "status": "answered",
+   "text": "Decision devA.DEC-015 (web_hosting) is blocked on a material contradiction: the comparison did not address a material contradiction about Fly Io Fly Io on invoice waiver threshold (devA.CLM-1104, devA.CLM-1124): the sources give under $5 and under $5 waived; the comparison did not address a material contradiction about Vercel on commercial deployment allowance (devA.CLM-646): the sources give personal, non-commercial projects only. Answer open to leave the decision open (the plan states the conflict and the check that settles it), or a note on which source to trust; the note is recorded with the decision, and the conflict is settled by evidence, never by the note."
+  }
+ ]
+}

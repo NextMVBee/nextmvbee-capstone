@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "DiscoveredCandidate": {
+      "additionalProperties": false,
+      "description": "Phase 9b (D-A52): a lead from OpenRouter's agentic web search (the Perplexity or the Parallel engine): never evidence.",
+      "properties": {
+        "vendor": {
+          "maxLength": 80,
+          "title": "Vendor",
+          "type": "string"
+        },
+        "product": {
+          "maxLength": 120,
+          "title": "Product",
+          "type": "string"
+        },
+        "plan_or_mode": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Plan Or Mode",
+          "type": "string"
+        },
+        "product_class": {
+          "maxLength": 60,
+          "title": "Product Class",
+          "type": "string"
+        },
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Urls",
+          "type": "array"
+        },
+        "why": {
+          "default": "",
+          "maxLength": 300,
+          "title": "Why",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vendor",
+        "product",
+        "product_class"
+      ],
+      "title": "DiscoveredCandidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9b (D-A52): the candidates an agentic search pass found for one subject, and every URL it read.",
+  "properties": {
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/DiscoveredCandidate"
+      },
+      "maxItems": 20,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "urls_read": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 40,
+      "title": "Urls Read",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "DiscoveryOut",
+  "type": "object"
+}

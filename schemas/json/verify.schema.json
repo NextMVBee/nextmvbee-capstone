@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "ClaimVerdict": {
+      "additionalProperties": false,
+      "description": "One verdict of a verification group (Phase 05b, C5): the fields of the version 1 verdict, keyed by the claim id it judges.",
+      "properties": {
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "supported",
+            "partial",
+            "contradicted",
+            "conflicting",
+            "insufficient"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "maxLength": 600,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quote"
+        },
+        "reason": {
+          "maxLength": 400,
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope_matches_claim": {
+          "default": false,
+          "title": "Scope Matches Claim",
+          "type": "boolean"
+        },
+        "conditions_found": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Conditions Found",
+          "type": "array"
+        },
+        "version_or_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version Or Date"
+        },
+        "requirements_entailed": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Requirements Entailed",
+          "type": "array"
+        }
+      },
+      "required": [
+        "claim_id",
+        "verdict",
+        "reason"
+      ],
+      "title": "ClaimVerdict",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 05b (C5, D-17): one verdict per claim id of the group sent; VerificationOut (version 1) stays for the replay of stored runs.",
+  "properties": {
+    "verdicts": {
+      "items": {
+        "$ref": "#/$defs/ClaimVerdict"
+      },
+      "maxItems": 20,
+      "title": "Verdicts",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "VerificationOutV2",
+  "type": "object"
+}

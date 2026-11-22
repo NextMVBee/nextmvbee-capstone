@@ -1,0 +1,247 @@
+{
+  "$defs": {
+    "PanelContradiction": {
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "maxLength": 200,
+          "title": "Topic",
+          "type": "string"
+        },
+        "stances": {
+          "items": {
+            "$ref": "#/$defs/PanelStance"
+          },
+          "maxItems": 8,
+          "title": "Stances",
+          "type": "array"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "title": "PanelContradiction",
+      "type": "object"
+    },
+    "PanelInsight": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "maxLength": 80,
+          "title": "Model",
+          "type": "string"
+        },
+        "insight": {
+          "maxLength": 300,
+          "title": "Insight",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "insight"
+      ],
+      "title": "PanelInsight",
+      "type": "object"
+    },
+    "PanelPartial": {
+      "additionalProperties": false,
+      "properties": {
+        "models": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Models",
+          "type": "array"
+        },
+        "point": {
+          "maxLength": 300,
+          "title": "Point",
+          "type": "string"
+        }
+      },
+      "required": [
+        "point"
+      ],
+      "title": "PanelPartial",
+      "type": "object"
+    },
+    "PanelProduct": {
+      "additionalProperties": false,
+      "properties": {
+        "vendor": {
+          "maxLength": 80,
+          "title": "Vendor",
+          "type": "string"
+        },
+        "product": {
+          "maxLength": 120,
+          "title": "Product",
+          "type": "string"
+        },
+        "product_class": {
+          "maxLength": 60,
+          "title": "Product Class",
+          "type": "string"
+        },
+        "why": {
+          "default": "",
+          "maxLength": 300,
+          "title": "Why",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vendor",
+        "product",
+        "product_class"
+      ],
+      "title": "PanelProduct",
+      "type": "object"
+    },
+    "PanelResponse": {
+      "additionalProperties": false,
+      "description": "Phase 11 package 11.2 (D-A212): one analysis model's response as the panel recorded it: substantive (it answered the question with\nfacts), tool_unavailable (it reported that the fusion tool or a tool it needed was unavailable), error (it failed) or empty (no answer).",
+      "properties": {
+        "model": {
+          "maxLength": 120,
+          "title": "Model",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "substantive",
+            "tool_unavailable",
+            "error",
+            "empty"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "maxLength": 200,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "outcome"
+      ],
+      "title": "PanelResponse",
+      "type": "object"
+    },
+    "PanelStance": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "maxLength": 80,
+          "title": "Model",
+          "type": "string"
+        },
+        "stance": {
+          "maxLength": 300,
+          "title": "Stance",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "stance"
+      ],
+      "title": "PanelStance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9b (D-A52): the fusion panel's analysis, copied by the model into the answer: consensus, contradictions, partial\ncoverage, unique insights, blind spots, and every product the panel named; code turns a named product that is not a\ncandidate into a typed candidate and a contradiction into a research question; nothing here is evidence.",
+  "properties": {
+    "status": {
+      "default": "ok",
+      "maxLength": 40,
+      "title": "Status",
+      "type": "string"
+    },
+    "consensus": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 12,
+      "title": "Consensus",
+      "type": "array"
+    },
+    "contradictions": {
+      "items": {
+        "$ref": "#/$defs/PanelContradiction"
+      },
+      "maxItems": 8,
+      "title": "Contradictions",
+      "type": "array"
+    },
+    "partial_coverage": {
+      "items": {
+        "$ref": "#/$defs/PanelPartial"
+      },
+      "maxItems": 8,
+      "title": "Partial Coverage",
+      "type": "array"
+    },
+    "unique_insights": {
+      "items": {
+        "$ref": "#/$defs/PanelInsight"
+      },
+      "maxItems": 8,
+      "title": "Unique Insights",
+      "type": "array"
+    },
+    "blind_spots": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Blind Spots",
+      "type": "array"
+    },
+    "products_named": {
+      "items": {
+        "$ref": "#/$defs/PanelProduct"
+      },
+      "maxItems": 12,
+      "title": "Products Named",
+      "type": "array"
+    },
+    "models": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Models",
+      "type": "array"
+    },
+    "responses": {
+      "items": {
+        "$ref": "#/$defs/PanelResponse"
+      },
+      "maxItems": 8,
+      "title": "Responses",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "PanelOut",
+  "type": "object"
+}

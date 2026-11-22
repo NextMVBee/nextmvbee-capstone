@@ -1,0 +1,154 @@
+{
+  "$defs": {
+    "ExtractedClaimV2": {
+      "additionalProperties": false,
+      "description": "Phase 05b (C2): a claim names the subjects of the send it bears on; the application validates every id against the subject list and refuses a claim without a valid one (refused_unlinked).",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "price",
+            "license",
+            "availability",
+            "capability",
+            "version",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "quote": {
+          "maxLength": 600,
+          "title": "Quote",
+          "type": "string"
+        },
+        "decision_subject": {
+          "title": "Decision Subject",
+          "type": "string"
+        },
+        "subject": {
+          "default": "",
+          "title": "Subject",
+          "type": "string"
+        },
+        "attribute": {
+          "default": "",
+          "title": "Attribute",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "title": "Value",
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Conditions",
+          "type": "array"
+        },
+        "more_conditions": {
+          "default": false,
+          "title": "More Conditions",
+          "type": "boolean"
+        },
+        "vendor": {
+          "default": "",
+          "title": "Vendor",
+          "type": "string"
+        },
+        "product": {
+          "default": "",
+          "title": "Product",
+          "type": "string"
+        },
+        "product_version": {
+          "default": "",
+          "title": "Product Version",
+          "type": "string"
+        },
+        "access_route": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Access Route",
+          "type": "string"
+        },
+        "identity_kind": {
+          "default": "product",
+          "enum": [
+            "product",
+            "approach"
+          ],
+          "title": "Identity Kind",
+          "type": "string"
+        },
+        "subject_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Subject Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text",
+        "kind",
+        "source_id",
+        "quote",
+        "decision_subject"
+      ],
+      "title": "ExtractedClaimV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 05b (C2, D-17): the version 2 extraction contract; EvidenceExtractionOut (version 1) stays for the replay of stored runs.",
+  "properties": {
+    "claims": {
+      "items": {
+        "$ref": "#/$defs/ExtractedClaimV2"
+      },
+      "maxItems": 12,
+      "title": "Claims",
+      "type": "array"
+    },
+    "injection_suspected": {
+      "default": false,
+      "title": "Injection Suspected",
+      "type": "boolean"
+    },
+    "more_claims": {
+      "default": false,
+      "title": "More Claims",
+      "type": "boolean"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "claims"
+  ],
+  "title": "EvidenceExtractionOutV2",
+  "type": "object"
+}

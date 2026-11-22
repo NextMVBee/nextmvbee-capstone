@@ -1,0 +1,203 @@
+{
+  "$defs": {
+    "MemoOption": {
+      "additionalProperties": false,
+      "properties": {
+        "option": {
+          "maxLength": 120,
+          "title": "Option",
+          "type": "string"
+        },
+        "product_id": {
+          "default": "",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_version": {
+          "default": "",
+          "title": "Product Version",
+          "type": "string"
+        },
+        "fit": {
+          "default": "",
+          "maxLength": 300,
+          "title": "Fit",
+          "type": "string"
+        },
+        "price": {
+          "default": "",
+          "maxLength": 200,
+          "title": "Price",
+          "type": "string"
+        },
+        "monthly_cost": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Monthly Cost",
+          "type": "string"
+        },
+        "risk": {
+          "default": "",
+          "maxLength": 300,
+          "title": "Risk",
+          "type": "string"
+        },
+        "verdict": {
+          "default": "watch",
+          "enum": [
+            "recommended",
+            "runner-up",
+            "bake-off",
+            "watch",
+            "later",
+            "not now",
+            "rejected"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        },
+        "claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12,
+          "title": "Claim Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "option"
+      ],
+      "title": "MemoOption",
+      "type": "object"
+    },
+    "MemoPick": {
+      "additionalProperties": false,
+      "properties": {
+        "option": {
+          "maxLength": 120,
+          "title": "Option",
+          "type": "string"
+        },
+        "product_id": {
+          "default": "",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_version": {
+          "default": "",
+          "title": "Product Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "option"
+      ],
+      "title": "MemoPick",
+      "type": "object"
+    },
+    "MemoWhy": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 400,
+          "title": "Text",
+          "type": "string"
+        },
+        "claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Claim Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "MemoWhy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9a (D-A44): compare_options.v5, the decision memo; ComparisonOut (version 1 to 4) stays for the replay of stored runs.",
+  "properties": {
+    "decision_subject": {
+      "title": "Decision Subject",
+      "type": "string"
+    },
+    "recommendation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MemoPick"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "runner_up": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MemoPick"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "why": {
+      "items": {
+        "$ref": "#/$defs/MemoWhy"
+      },
+      "maxItems": 4,
+      "title": "Why",
+      "type": "array"
+    },
+    "options": {
+      "items": {
+        "$ref": "#/$defs/MemoOption"
+      },
+      "maxItems": 6,
+      "title": "Options",
+      "type": "array"
+    },
+    "change_mind": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "title": "Change Mind",
+      "type": "array"
+    },
+    "open": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 6,
+      "title": "Open",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "decision_subject"
+  ],
+  "title": "ComparisonOutV2",
+  "type": "object"
+}

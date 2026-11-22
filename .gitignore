@@ -1,0 +1,15 @@
+# secrets and local configuration
+config/.env
+config/settings.toml
+
+# local data (database, checkpoints, sources, exports)
+data/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# editors and OS
+.vscode/
+.DS_Store

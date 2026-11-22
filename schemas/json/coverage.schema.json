@@ -1,0 +1,48 @@
+{
+  "additionalProperties": false,
+  "description": "Phase 9a (D-A42): the coverage step's verdict for one product and one hard requirement (coverage.v1); Phase 11 package 11.1 (D-A190):\ncontradicts, the fourth value, a proven violation under the disqualification rule (coverage.v3); none stays not proven.",
+  "properties": {
+    "verdict": {
+      "enum": [
+        "entails",
+        "partial",
+        "none",
+        "contradicts"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    },
+    "claim_ids_used": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Claim Ids Used",
+      "type": "array"
+    },
+    "note": {
+      "default": "",
+      "maxLength": 300,
+      "title": "Note",
+      "type": "string"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "verdict"
+  ],
+  "title": "CoverageOut",
+  "type": "object"
+}

@@ -1,0 +1,212 @@
+{
+  "$defs": {
+    "AcceptanceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "task_key": {
+          "title": "Task Key",
+          "type": "string"
+        },
+        "requirement_id": {
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "criterion": {
+          "title": "Criterion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_key",
+        "requirement_id",
+        "criterion"
+      ],
+      "title": "AcceptanceDraft",
+      "type": "object"
+    },
+    "ComponentDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "responsibility": {
+          "title": "Responsibility",
+          "type": "string"
+        },
+        "decision_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Decision Ids",
+          "type": "array"
+        },
+        "data_leaves_device": {
+          "title": "Data Leaves Device",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "responsibility",
+        "decision_ids",
+        "data_leaves_device"
+      ],
+      "title": "ComponentDraft",
+      "type": "object"
+    },
+    "TaskDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "component_key": {
+          "title": "Component Key",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "depends_on": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "effort_hours_low": {
+          "minimum": 0,
+          "title": "Effort Hours Low",
+          "type": "number"
+        },
+        "effort_hours_high": {
+          "minimum": 0,
+          "title": "Effort Hours High",
+          "type": "number"
+        }
+      },
+      "required": [
+        "key",
+        "component_key",
+        "title",
+        "effort_hours_low",
+        "effort_hours_high"
+      ],
+      "title": "TaskDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "problem": {
+      "title": "Problem",
+      "type": "string"
+    },
+    "users": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Users",
+      "type": "array"
+    },
+    "scope_in": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scope In",
+      "type": "array"
+    },
+    "scope_out": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scope Out",
+      "type": "array"
+    },
+    "user_flow": {
+      "items": {
+        "type": "string"
+      },
+      "title": "User Flow",
+      "type": "array"
+    },
+    "user_flow_labels": {
+      "items": {
+        "type": "string"
+      },
+      "title": "User Flow Labels",
+      "type": "array"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/ComponentDraft"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "tasks": {
+      "items": {
+        "$ref": "#/$defs/TaskDraft"
+      },
+      "title": "Tasks",
+      "type": "array"
+    },
+    "acceptance": {
+      "items": {
+        "$ref": "#/$defs/AcceptanceDraft"
+      },
+      "title": "Acceptance",
+      "type": "array"
+    },
+    "risks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Risks",
+      "type": "array"
+    },
+    "unresolved_checks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unresolved Checks",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "problem",
+    "users",
+    "scope_in",
+    "scope_out",
+    "user_flow",
+    "components",
+    "tasks",
+    "acceptance",
+    "risks",
+    "unresolved_checks"
+  ],
+  "title": "PlanOut",
+  "type": "object"
+}

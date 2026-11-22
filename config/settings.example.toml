@@ -1,0 +1,158 @@
+# NextMVBee settings, the example file, with trial run limits in [budget]; config/settings.hosted.toml holds the hosted service's limits. Check the prices in [models.prices_per_million] against the provider's catalogue before use.
+[models]
+default = "google/gemini-3.8-flash"          # the default model of every stage, chosen by the model comparison E1 (evaluation/experiments/E1_RESULTS.md)
+fallback = "openai/gpt-6.1-sol"             # the fallback model, from another vendor; also chosen by E1
+premium = ""                                     # empty: no premium model; set one only if a comparison of premium models for compare_options and plan_generate supports it
+quality_rank = ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5", "openai/gpt-6.1-sol", "google/gemini-3.8-flash"]   # models by quality, strongest first; the stages in strong_stages use the first entry that has a price below, so give every entry a price
+strong_stages = ["coverage", "compare_options", "enrich", "verify_plan", "editor"]   # the stages sent to the strongest model of quality_rank: coverage, comparison, plan enrichment, plan verification, and the Editor (the role that edits the plan's wording); every other stage uses the default model
+routing_revision = 3                             # the revision number of the model routes; 3 is the revision that added the strong_stages route
+reasoning_effort = "low"                         # sent as reasoning.effort on every request; "" sends nothing; "low" bounds reasoning because the chosen endpoints do not allow turning it off (measured on 8 October 2026: "none" returns HTTP 400)
+[models.prices_per_million]                      # USD per million tokens: input, output
+"openai/gpt-6.1-sol" = [2.00, 10.00]
+"anthropic/claude-sonnet-5.5" = [2.00, 10.00]
+"google/gemini-3.8-flash" = [0.825, 4.125]             # price read from the provider's catalogue on 25 October 2026
+"anthropic/claude-opus-5.5" = [4.00, 20.00]
+"openai/gpt-5.6-sol" = [4.00, 20.00]              # the model of the discovery passes ([discovery].model); price read from the provider's catalogue on 25 October 2026
+"google/gemini-3-pro-image" = [2.00, 120.00]     # the image model, billed per token through OpenRouter: a generated picture is 1,120 output tokens at 1K or 2K (0.1344 USD; measured on 19 October 2026) and 2,000 at 4K (0.24 USD); the prompt and each reference image count as input tokens; see the provider's documentation
+
+[budget]
+cap_usd = 2.50                                    # the spend cap of one research run, in USD, covering research, writing and editing; a trial value
+completion_reserve_usd = 0.45
+revision_cap_usd = 1.25                           # the spend cap of one revision run (a usage correction or a requirement change), separate from cap_usd
+revision_fresh_claims_per_subject = 80            # the fresh claims shown to the revision model per subject it decides again; the rest are given as a count, because a prompt with every claim made the answer overrun its output ceiling
+max_model_calls = 100                           # the ceiling of model calls per run; a trial value: measured runs made 67 and 72 calls before verification
+max_searches = 30
+max_pages = 50                                    # the ceiling of pages fetched by address in one run (the read and re-fetch tool calls); a search also returns pages with their text, and those are bounded by max_searches and [research].num_results
+max_minutes = 15                                  # the ceiling of active minutes per run, covering research, writing and editing
+max_repairs_per_call = 1
+max_fallbacks_per_call = 1
+
+[experiments]                                     # used by the experiments' scripts, which are not part of this repository: the spend cap in USD of each live retrieval measurement (a, c and d), each on its own ledger; the [budget] caps do not apply to them
+e2a_cap_usd = 3.00
+e2c_cap_usd = 0.50                               # measurement c, run on the third version of its fixtures
+e2d_cap_usd = 0.50                                # measurement d, of stored reads (two instances of the research_plan stage)
+completion_reserve_usd = 0.00                     # a measurement keeps no completion reserve: it drafts no plan
+
+[output]                                         # the output ceiling of each stage in tokens; every model call and its cost reservation use these (output_ceiling in app/adapters/model_gateway.py)
+clarify = 2000                                   # measured on 8 October 2026: a clarify answer needs more than 1,185 output tokens; a truncated answer gets one raise within max_bump, then is flagged
+research_plan = 2500                 # measured on 8 October 2026: a research plan needs more than 1,193 output tokens before its first search; one raise, then flagged
+extract_evidence = 2500              # room for a batch of 12 claims with conditions (measured on 8 October 2026); a truncated batch is split, raised once, then marked needs_review
+verify = 1500                        # room for a verdict with its conditions and a quote (measured on 8 October 2026); one raise, then flagged
+compare_options = 2500               # room for up to three options with strengths and risks (measured on 8 October 2026); one raise, then flagged
+tree = 1600
+plan_generate = 4000                             # E1 measured plans of 2,300 and 3,500 tokens
+revise = 2000                        # the size of a second clarify round (measured on 8 October 2026: 1,624 tokens); one raise, then flagged
+coverage = 600                       # one verdict with the ids of the claims used and a note
+enrich = 3500                        # the entities, interfaces and component relations of one plan version
+verify_plan = 2000                   # at most ten checks
+discover = 2500                      # one discovery pass: the candidates and the URLs read
+panel = 2500                         # the analysis of the panel (three models that read a draft comparison), copied into the answer
+followup = 2500                      # the one repeat of the comparison after a follow-up requested by the panel or the currency check
+editor = 12000                       # the Editor's pass over all reader-facing text of a plan version; capacity, not a target length; [studio].editor_cap_usd still applies: a version whose estimated cost exceeds it is edited in two calls, and anything left unedited is reported
+max_bump = 1.5                                   # the factor of the one raise of a stage ceiling, for a single passage that still truncates after its batch was split
+reasoning_allowance = 4000                       # tokens added to every stage ceiling in max_tokens and in the cost reservation, because reasoning tokens count against max_tokens (measured on 8 October 2026 in three runs)
+
+[research]
+type = "auto"                                    # the search type sent to Exa, the search provider: one of auto, fast, deep or lite, the types the adapter allows (ALLOWED_TYPES in app/adapters/research.py); it is the type of a search whose request names neither a type nor additional queries (app/core/tools.py); any other value is refused when the adapter is built
+num_results = 8                                  # results per search; never above 10, where Exa starts to charge per extra result
+summaries = false                                # read by no code of this repository; the request builders never ask Exa for an AI summary (build_search_body and exa_content_options in app/adapters/research.py), whatever the value here
+timeout_seconds = 30                              # read by two experiment scripts only, which are not part of this repository, as the HTTP timeout of their Exa calls; the application does not read it: its Exa calls take the time limit of their class in code (SEND_TIMEOUT_S in app/core/ledger.py), are never retried, and a call that times out is recorded as unknown, since it may have reached Exa
+retries = 0                                      # read by no code of this repository; the adapter never sends an Exa call a second time (app/adapters/research.py), whatever the value here, and a call that times out is recorded as unknown
+batch_chars = 20000                              # characters per extraction batch; batches continue until the source is covered
+batch_overlap_chars = 1500                       # overlap between consecutive batches, so that a claim and its qualification stay together
+max_continuations_per_batch = 4                  # continuations of one batch, each told which claims are already recorded; beyond this the batch is marked needs_review
+max_condition_continuations = 2                  # follow-up calls for the remaining conditions of one claim
+simulate_fresh_reads = false                      # true makes a stub research adapter treat the zero-hour (volatile) pages as read fresh at the research plan step; the live adapter always reads them fresh
+[research.max_age_hours]                         # the maximum age of a cached page in hours per freshness class, mirroring POLICY in app/core/freshness.py: 0 (always fetched live) for volatile pages, one week for the rest
+volatile = 0
+policy = 168
+technical = 168
+stable = 168
+
+[extraction]                                     # how evidence is collected for each decision subject
+k_per_subject = 8                                # candidate sources per subject: the distinct sources of the top-ranked passages for the subject's key facts
+max_passages_scanned = 40                        # passages scanned per subject to collect those sources
+extension_k = 8                                  # one extension: the next distinct sources for a subject whose admitted sources are all processed while its evidence is still pending or insufficient
+claims_per_verify_send = 8                       # claims per verification call, at most; fewer when the verify output ceiling could not hold one verdict per claim
+max_verify_continuations = 2                     # further calls per source for claims still without a verdict; the rest are marked needs_review
+closing_reserve_calls = 16                       # model calls kept back for the comparison and the plan: counted in the admission forecast and protected before every extract or verify call
+seconds_per_send_default = 13                    # estimated seconds per model call until the run has measured its own
+coverage_step = true                             # after verification, ask the model which hard requirements no verified claim supports; false leaves the verifier's records as the only source
+enrichment = true                                # the plan enrichment and verification-plan calls after the plan draft; false stores the version without them
+
+[tools]
+stage_limit = 8                                  # tool calls a model may request per stage instance; the run limits still apply
+observation_chars = 6000                         # characters of one page shown in a tool observation; the rest is reachable by read offset or query
+observation_total_chars = 18000                  # cap on the page content of one observation; pages beyond it carry metadata only
+context_chars = 60000                            # tool-result characters kept in a stage transcript; above this the oldest results are replaced by pointers
+allowlist.research_plan = ["search", "read", "ask_user"]
+allowlist.verify = ["re_fetch"]
+
+[tree]
+max_alternatives = 3
+max_variants = 3
+max_depth = 2
+max_model_calls = 7                              # per decision, retries included
+max_tree_decisions_per_run = 0                   # 0: every decision uses the simple comparison; a positive value lets that many high-importance decisions per run use the bounded decision tree
+
+[evidence_pack]                                   # the claims that the comparison, the panel and the tree see per candidate (app/core/evidence_pack.py)
+max_claims_per_pack = 40                          # claims per candidate pack; material contradictions always keep their slots; if the pack cannot also hold one supporting claim per binding hard requirement, the decision stays open
+max_tokens_per_pack = 4000                        # estimated tokens of the pack's claim lines (estimate_tokens in app/core/ledger.py); the same rule for contradictions
+
+[workers]
+max_research_workers = 3                         # parallel research workers, for independent tasks only, at most 3; the ledger serialises their reservations
+
+[export]                                          # used by the document renderer, which is not part of this repository; rendering calls no model and costs nothing; files are written under data/exports/<project>/v<version>/<job id>/
+formats = ["html", "pdf", "docx"]                 # the formats offered for a plan version; every export produces all three, and a format left out here is shown as not enabled
+studio_cap_usd = 2.00                             # the spend cap in USD of the Studio (the design step of the document renderer) per document: the design call, the illustrations and pictures, the repairs and the critic rounds; at the cap the Studio stops and the standard layout is used, with the cause recorded
+
+[send_timeout_s]                                  # the time limit of one model call in seconds, per stage (stage names as in [output]); a stage without a key has 300 s (SEND_TIMEOUT_S in app/core/ledger.py); a call past its limit counts as interrupted, may have been charged, and is never resent automatically
+panel = 300                                       # the panel check is one request in which the provider runs the panel's models with search and fetch; 300 is the code's default, written out
+
+[privacy]
+default_mode = "cloud"                           # cloud, or cloud_zdr (model endpoints with zero data retention)
+
+[guard]
+sql_mode = "raise"                               # a query on derived evidence state outside its accessor or the derive step: raise (tests, development) or log its fingerprint (production); app/core/sqlguard.py
+
+[runner]
+workers = 1
+heartbeat_seconds = 10
+stale_after_seconds = 60
+recover_other_workers_runs = true
+
+[backups]                                         # used by the backups, which are not part of this repository
+retention_days = 30
+
+[sse]                                             # used by the web application's event stream, which is not part of this repository
+poll_seconds = 0.5
+ping_seconds = 15
+
+[studio]                                          # used by the Studio, which is not part of this repository; only editor_cap_usd is read by this repository's code
+mode = "layout"                                   # "layout": the Studio designs a whole layout (one design request, its illustrations and pictures, repair and critic rounds, a review gate); "cover": the Studio contributes the cover's concept only, by one design request and one request for the cover's illustration, with no repair and no critic request, and the standard layout is printed with the design's name and illustration on its cover; the example keeps the designed layout
+editor_cap_usd = 0.80                             # the Editor's spend cap per plan version, across its calls on the strongest model; the code's default is also 0.80
+design_max_tokens = 80000                         # the output ceiling of the one design call: a design measured 28,000 to 36,000 tokens (three examples) plus reasoning; at the measured 83 tokens a second, 80,000 finish within the send timeout
+design_reasoning_effort = "low"                   # sent as reasoning.effort on the design call (the design model ignored a budget in tokens); low measured under 1,000 reasoning tokens, and a higher effort can use up the output ceiling and cut the design short
+repair_max_tokens = 16000                         # the output ceiling of a repair call, which receives the exact errors
+critic_max_tokens = 16000                         # the output ceiling of a critic round (vision, no temperature); measured: 28 pages of findings and a patch exceed 8,000 tokens
+critic_batch_crops = 16                           # page crops (200 dpi) per critic call, sent beside the proofs; every crop is reviewed and each call is reserved under the cap; if the cap cannot cover a batch, the review stays incomplete and the design pending
+max_rounds = 10                                   # the ceiling of repair and critic rounds per document: room for five to ten design loops and the review rounds
+vector_models = { pro = "recraft/recraft-v4.1-pro-vector", standard = "recraft/recraft-v4.1-vector" }   # the vector illustration model per tier; a successor from the provider's catalogue may replace one, and the model used is recorded
+vector_price_usd = { pro = 0.30, standard = 0.08 }   # the cost reserved per illustration, in USD, when the provider's endpoint record carries no price
+picture_model = "google/gemini-3-pro-image"       # the raster image model, for the rare pictures
+strongest_alias = "~anthropic/claude-opus-latest" # an alias resolved to a concrete model through the provider's catalogue, and recorded; if the alias is not served, the first entry of [models].quality_rank is used
+
+[discovery]                                       # the discovery passes that search beside the direct Exa search, and the checks at comparison; an engine comparison of 25 October 2026 chose this configuration
+engines = ["perplexity", "parallel"]              # one agentic web search pass per decision subject and engine, through OpenRouter; [] leaves the direct Exa search only
+model = "openai/gpt-5.6-sol"                      # the model of the discovery passes and of the panel request, chosen by that engine comparison (mean recall 93.3); "" uses [models].default
+max_tool_calls = 8                                # tool calls per discovery pass; the code allows at most 12 (the API's maximum is 30); 8 bounds the cost of a pass
+fetch_uses = 4                                    # page fetches per discovery pass
+max_results = 10
+max_total_results = 40
+reads_per_subject = 4                             # the top URLs found by the passes that the application's own fetcher reads per subject; the run's page limit still applies
+panel = true                                      # the panel check at comparison: three models read the draft comparison; false leaves the comparison as written
+panel_cap_usd = 0.75                              # the panel's spend cap per decision, in USD
+panel_server_tools = true                         # true sends the panel request with the provider's fusion tool (openrouter:fusion), whose models search and fetch inside the provider; false offers no tool, so one model reads the draft and the candidates' labels under the prompt panel_direct.v1 (for experiments on frozen evidence)
+panel_models = ["~anthropic/claude-opus-latest", "~openai/gpt-sol-latest", "~google/gemini-pro-latest"]   # the models of the panel: the provider's documented quality preset
+currency = true                                   # check that every pick is the current generation, against the provider's catalogue and the vendor's pages fetched in this run
+followup = true                                   # the one bounded follow-up research after the panel; false records the panel's request (candidates, questions) on the memo and the trace and researches nothing (for experiments on frozen evidence)

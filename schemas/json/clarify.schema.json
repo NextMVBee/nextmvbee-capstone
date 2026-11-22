@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "QuestionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 300,
+          "title": "Text",
+          "type": "string"
+        },
+        "why_blocking": {
+          "maxLength": 300,
+          "title": "Why Blocking",
+          "type": "string"
+        },
+        "requirement_key": {
+          "title": "Requirement Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "why_blocking",
+        "requirement_key"
+      ],
+      "title": "QuestionDraft",
+      "type": "object"
+    },
+    "RequirementDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "user",
+            "inferred"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "hard": {
+          "default": false,
+          "title": "Hard",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "value",
+        "source"
+      ],
+      "title": "RequirementDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/RequirementDraft"
+      },
+      "title": "Requirements",
+      "type": "array"
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "contradictions": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5,
+      "title": "Contradictions",
+      "type": "array"
+    },
+    "questions": {
+      "items": {
+        "$ref": "#/$defs/QuestionDraft"
+      },
+      "maxItems": 3,
+      "title": "Questions",
+      "type": "array"
+    },
+    "ready_for_research": {
+      "title": "Ready For Research",
+      "type": "boolean"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "requirements",
+    "ready_for_research"
+  ],
+  "title": "ClarifyOut",
+  "type": "object"
+}

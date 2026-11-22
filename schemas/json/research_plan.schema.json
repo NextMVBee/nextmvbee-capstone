@@ -1,0 +1,261 @@
+{
+  "$defs": {
+    "ApplicabilityDraft": {
+      "additionalProperties": false,
+      "description": "Phase 9a (D-A40): the subjects a hard requirement binds, with a one-line reason.",
+      "properties": {
+        "requirement_id": {
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Subjects",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 200,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "reason"
+      ],
+      "title": "ApplicabilityDraft",
+      "type": "object"
+    },
+    "CandidateDraft": {
+      "additionalProperties": false,
+      "description": "Phase 9a (D-A41, D-A50): a typed candidate of a subject; specialised_for names the language it is specialised in, when one.\nPhase 18 package 18.1 (D-A299): the identity beside the label: kind (product or approach), vendor, product, version and access_route\n(the plan, tier, endpoint or deployment: a facet of the identity, never a candidate of its own); code composes the label from the vendor\nand the product when both are given and splits a bare label otherwise (app.core.discovery.insert_candidate).",
+      "properties": {
+        "subject": {
+          "maxLength": 120,
+          "title": "Subject",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 120,
+          "title": "Label",
+          "type": "string"
+        },
+        "product_class": {
+          "maxLength": 60,
+          "title": "Product Class",
+          "type": "string"
+        },
+        "specialised_for": {
+          "anyOf": [
+            {
+              "maxLength": 20,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Specialised For"
+        },
+        "kind": {
+          "default": "product",
+          "enum": [
+            "product",
+            "approach"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "vendor": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Vendor",
+          "type": "string"
+        },
+        "product": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Product",
+          "type": "string"
+        },
+        "version": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Version",
+          "type": "string"
+        },
+        "access_route": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Access Route",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "label",
+        "product_class"
+      ],
+      "title": "CandidateDraft",
+      "type": "object"
+    },
+    "Freshness": {
+      "enum": [
+        "volatile",
+        "policy",
+        "technical",
+        "stable"
+      ],
+      "title": "Freshness",
+      "type": "string"
+    },
+    "QueryDraftV2": {
+      "additionalProperties": false,
+      "description": "Phase 9a (D-A50): a query carries the language it is written in (a code such as en or he).",
+      "properties": {
+        "text": {
+          "maxLength": 200,
+          "title": "Text",
+          "type": "string"
+        },
+        "decision_subject": {
+          "title": "Decision Subject",
+          "type": "string"
+        },
+        "target_fact": {
+          "maxLength": 200,
+          "title": "Target Fact",
+          "type": "string"
+        },
+        "include_domains": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Include Domains",
+          "type": "array"
+        },
+        "recency_days": {
+          "anyOf": [
+            {
+              "maximum": 3650,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recency Days"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness",
+          "default": "technical"
+        },
+        "language": {
+          "default": "en",
+          "maxLength": 8,
+          "title": "Language",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "decision_subject",
+        "target_fact"
+      ],
+      "title": "QueryDraftV2",
+      "type": "object"
+    },
+    "SubjectDraft": {
+      "additionalProperties": false,
+      "description": "Phase 9a (D-A41): a decision subject with its product class.",
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "title": "Name",
+          "type": "string"
+        },
+        "product_class": {
+          "maxLength": 60,
+          "title": "Product Class",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "product_class"
+      ],
+      "title": "SubjectDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9a (D-A40, D-A41, D-A50): research_plan.v2; ResearchPlanOut (version 1) stays for the replay of stored runs.",
+  "properties": {
+    "decision_subjects": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Decision Subjects",
+      "type": "array"
+    },
+    "subjects": {
+      "items": {
+        "$ref": "#/$defs/SubjectDraft"
+      },
+      "maxItems": 10,
+      "title": "Subjects",
+      "type": "array"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/CandidateDraft"
+      },
+      "maxItems": 40,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "applicability": {
+      "items": {
+        "$ref": "#/$defs/ApplicabilityDraft"
+      },
+      "maxItems": 10,
+      "title": "Applicability",
+      "type": "array"
+    },
+    "queries": {
+      "items": {
+        "$ref": "#/$defs/QueryDraftV2"
+      },
+      "maxItems": 8,
+      "title": "Queries",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "decision_subjects",
+    "queries"
+  ],
+  "title": "ResearchPlanOutV2",
+  "type": "object"
+}

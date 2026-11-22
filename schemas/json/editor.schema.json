@@ -1,0 +1,219 @@
+{
+  "$defs": {
+    "DroppedField": {
+      "additionalProperties": false,
+      "description": "Phase 17 package 17.3 (D-A55 amended, D-A279): editor.v2, a field the Editor leaves out of the document with its reason (irrelevant to the family's purpose, a duplicate of path, superseded by path).",
+      "properties": {
+        "path": {
+          "maxLength": 80,
+          "title": "Path",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 300,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "reason"
+      ],
+      "title": "DroppedField",
+      "type": "object"
+    },
+    "EditedField": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 80,
+          "title": "Path",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 1200,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "text"
+      ],
+      "title": "EditedField",
+      "type": "object"
+    },
+    "EditorAssessment": {
+      "additionalProperties": false,
+      "description": "editor.v2: one paragraph per family: what repeated, what was irrelevant, what contradicted, what is outdated, what was left for the founder.",
+      "properties": {
+        "family": {
+          "maxLength": 20,
+          "title": "Family",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 1600,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "family",
+        "text"
+      ],
+      "title": "EditorAssessment",
+      "type": "object"
+    },
+    "EditorFlagV2": {
+      "additionalProperties": false,
+      "description": "editor.v2: a flag with its kind (contradiction, outdated, source_error, presentation), the issue and the records involved; editor.v3 (Phase 17 package 17.4, D-A390): the kind provenance, a text that states a proposal or an assumption as a fact, or a fact as a guess.",
+      "properties": {
+        "path": {
+          "maxLength": 80,
+          "title": "Path",
+          "type": "string"
+        },
+        "kind": {
+          "default": "presentation",
+          "maxLength": 20,
+          "title": "Kind",
+          "type": "string"
+        },
+        "issue": {
+          "maxLength": 400,
+          "title": "Issue",
+          "type": "string"
+        },
+        "records": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Records",
+          "type": "array"
+        }
+      },
+      "required": [
+        "path",
+        "issue"
+      ],
+      "title": "EditorFlagV2",
+      "type": "object"
+    },
+    "MergedFields": {
+      "additionalProperties": false,
+      "properties": {
+        "paths": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 2,
+          "title": "Paths",
+          "type": "array"
+        },
+        "text": {
+          "maxLength": 1200,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "paths",
+        "text"
+      ],
+      "title": "MergedFields",
+      "type": "object"
+    },
+    "SummaryStatement": {
+      "additionalProperties": false,
+      "description": "editor.v2: one statement of the plan on one page, the shortest complete statement of the field at path (derived copy under rewrite_ok).",
+      "properties": {
+        "path": {
+          "maxLength": 80,
+          "title": "Path",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 400,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "text"
+      ],
+      "title": "SummaryStatement",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 17 package 17.3 (D-A55 amended, D-A279): editor.v2, the Editor's pass over the whole reader content of a version: the rewritten fields,\nthe merges, the drops with their reasons, the flags with their kinds, the assessment per family and the one page's statements. Code applies the\nhard checks to every rewrite, merge and drop before anything is stored (app/core/editor.py).",
+  "properties": {
+    "fields": {
+      "items": {
+        "$ref": "#/$defs/EditedField"
+      },
+      "maxItems": 200,
+      "title": "Fields",
+      "type": "array"
+    },
+    "merged": {
+      "items": {
+        "$ref": "#/$defs/MergedFields"
+      },
+      "maxItems": 30,
+      "title": "Merged",
+      "type": "array"
+    },
+    "dropped": {
+      "items": {
+        "$ref": "#/$defs/DroppedField"
+      },
+      "maxItems": 40,
+      "title": "Dropped",
+      "type": "array"
+    },
+    "flags": {
+      "items": {
+        "$ref": "#/$defs/EditorFlagV2"
+      },
+      "maxItems": 40,
+      "title": "Flags",
+      "type": "array"
+    },
+    "assessment": {
+      "items": {
+        "$ref": "#/$defs/EditorAssessment"
+      },
+      "maxItems": 2,
+      "title": "Assessment",
+      "type": "array"
+    },
+    "summary": {
+      "items": {
+        "$ref": "#/$defs/SummaryStatement"
+      },
+      "maxItems": 12,
+      "title": "Summary",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "EditorOutV2",
+  "type": "object"
+}

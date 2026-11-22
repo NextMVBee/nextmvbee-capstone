@@ -1,0 +1,81 @@
+NextMVBee worked example (synthetic input, stand-in providers, no key, no network)
+
+Input
+-----
+Idea:   Multilingual meeting assistant for small teams: transcribes Hebrew and English calls and emails a summary.
+Usage:  40 meetings a month in all, 45 minutes each, 3 users  (the founder's answer to the usage question)
+
+1. The founder's requirements, and the one question the run stopped for
+-----------------------------------------------------------------------
+  budget_monthly_usd   = 50       must-have  (confirmed)
+  languages            = he, en   must-have  (confirmed)
+  deployment_region    = eu-west  preference (confirmed)
+  The run paused with status 'awaiting_user' and asked: "Which deployment region do the users need?"  Answer given: eu-west
+  ok    the monthly budget is recorded as a confirmed must-have
+  ok    the run waited for the founder and sent nothing more until the answer
+
+2. The evidence: a quote that is on the stored page, word for word
+------------------------------------------------------------------
+  Source page:  https://docs.speech-a.example/pricing  (stored copy: 6,983 characters, sha256:687deb4fdc58...)
+  Claim:        Speech API A v3: price_per_hour is $0.60 per audio hour
+  Quote:        "Price per hour: $0.60 per audio hour."
+  Position:     characters 6549 to 6586 of the stored page
+  ok    the stored page holds exactly the quote at that position
+
+3. The verdict of the separate verification step
+------------------------------------------------
+  Claim status: supported; scope: in_scope; verified against requirement version 1
+  Support record: claim P1.CLM-001 for must-have 'budget_monthly_usd': verdict supported, counts
+  Support record: claim P1.CLM-003 for must-have 'languages': verdict supported, counts
+  ok    the price claim was verified as supported and in scope
+
+4. The cost calculation (arithmetic in code, no model involved)
+---------------------------------------------------------------
+  30 hours a month  x  0.60 USD per hour  =  18.00 USD a month
+  Unit price: sourced fact, P1.CLM-001 (cited).  Usage: calculated estimate from the founder's answer.  Budget: 50.00 USD a month.
+  The gate's record for the budget must-have: verdict 'entails'
+    "By calculation: Orion Compute 1 costs about 18.00 USD a month at your usage, within the budget of 50 USD a month for all services. The calculation: 30 hours at $0.60 per audio hour = 18.00 USD (P1.CLM-001)."
+  ok    40 meetings of 45 minutes are 30 hours; 30 x 0.60 = 18.00 USD a month
+  ok    the budget must-have is judged by this calculation and rests on the price claim
+
+5. The decision and the gate that made it active
+------------------------------------------------
+  Decision:  transcription -> Orion Compute 1  (status: active; proposed by the comparison step as: active)
+  Reason:    the only candidate with supported claims for Hebrew within the budget
+  Cites:     P1.CLM-001, P1.CLM-002, P1.CLM-003
+  Left open: Hebrew accuracy unverified in production
+  Must-have 'budget_monthly_usd' for this option: entails
+  Must-have 'languages' for this option: entails
+  ok    the decision is active and cites the verified price claim
+
+6. What the run spent, and the limits it ran under
+--------------------------------------------------
+  contents   1 calls   reserved before sending 0.001150 USD   reported after 0.000000 USD
+  model     10 calls   reserved before sending 0.105097 USD   reported after 0.010000 USD
+  search     3 calls   reserved before sending 0.024150 USD   reported after 0.000000 USD
+  (Stand-in prices. Each call's worst case is reserved before it is sent and settled to the reported cost after.)
+  ok    every call was reserved before sending and is settled
+  Limits of a hosted run (config/settings.hosted.toml): 30.00 USD, 480 active minutes, 1000 model calls
+
+7. The same run when the model invents a quote
+----------------------------------------------
+  The stub model returned a fourth claim with the quote "Free tier: 100 free hours every month.", which is not on the page.
+  Claims stored with that attribute: 0.  Quotes rejected by the extraction step: 1.
+  ok    a quote that is not on the stored page is refused and never becomes evidence
+
+8. The same run when the usage makes the option cost more than the budget
+-------------------------------------------------------------------------
+  Usage:  400 meetings a month in all, 45 minutes each, 3 users
+  Budget must-have: verdict 'contradicts'
+    "By calculation: Orion Compute 1 costs about 180.00 USD a month at your usage, above the budget of 50 USD a month for all services. The calculation: 300 hours at $0.60 per audio hour = 180.00 USD (P1.CLM-001)."
+  Decision status: unresolved
+  ok    300 hours x 0.60 = 180.00 USD is over the 50 USD budget: the calculation contradicts the must-have
+  ok    no decision for that option is active
+
+9. The same run when no verified quote supports the languages must-have
+-----------------------------------------------------------------------
+  Must-haves with a counting support record: budget_monthly_usd  (languages has none)
+  Decision: Orion Compute 1, status active; the gate's note: "conditional (rules v7): recommended and not yet proven on P1.REQ-002"  (P1.REQ-002 is the languages must-have)
+  ok    the option is recommended as 'not yet proven' on the languages must-have, never presented as proven
+
+Worked example complete: all checks ok. Final status of the first run: completed, plan version 1.

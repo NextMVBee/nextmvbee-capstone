@@ -1,0 +1,362 @@
+{
+  "$defs": {
+    "ComponentRelationDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "from_key": {
+          "maxLength": 60,
+          "title": "From Key",
+          "type": "string"
+        },
+        "to_key": {
+          "maxLength": 60,
+          "title": "To Key",
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 40,
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 120,
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_key",
+        "to_key",
+        "kind",
+        "label"
+      ],
+      "title": "ComponentRelationDraft",
+      "type": "object"
+    },
+    "EntityDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 60,
+          "title": "Name",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/EntityFieldDraft"
+          },
+          "maxItems": 16,
+          "title": "Fields",
+          "type": "array"
+        },
+        "relations": {
+          "items": {
+            "$ref": "#/$defs/EntityRelationDraft"
+          },
+          "maxItems": 8,
+          "title": "Relations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "EntityDraft",
+      "type": "object"
+    },
+    "EntityFieldDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 60,
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "maxLength": 40,
+          "title": "Type",
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "maxLength": 20,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Key"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "title": "EntityFieldDraft",
+      "type": "object"
+    },
+    "EntityRelationDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "to": {
+          "maxLength": 60,
+          "title": "To",
+          "type": "string"
+        },
+        "cardinality": {
+          "maxLength": 20,
+          "title": "Cardinality",
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 40,
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "to",
+        "cardinality",
+        "kind"
+      ],
+      "title": "EntityRelationDraft",
+      "type": "object"
+    },
+    "InterfaceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 80,
+          "title": "Name",
+          "type": "string"
+        },
+        "from_key": {
+          "maxLength": 60,
+          "title": "From Key",
+          "type": "string"
+        },
+        "to_key": {
+          "maxLength": 60,
+          "title": "To Key",
+          "type": "string"
+        },
+        "direction": {
+          "default": "request",
+          "maxLength": 20,
+          "title": "Direction",
+          "type": "string"
+        },
+        "kind": {
+          "default": "call",
+          "maxLength": 40,
+          "title": "Kind",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 400,
+          "title": "Description",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/InterfaceStepDraft"
+          },
+          "maxItems": 8,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "from_key",
+        "to_key",
+        "description"
+      ],
+      "title": "InterfaceDraft",
+      "type": "object"
+    },
+    "InterfaceStepDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "minimum": 1,
+          "title": "Order",
+          "type": "integer"
+        },
+        "from_key": {
+          "maxLength": 60,
+          "title": "From Key",
+          "type": "string"
+        },
+        "to_key": {
+          "maxLength": 60,
+          "title": "To Key",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 200,
+          "title": "Message",
+          "type": "string"
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Condition"
+        }
+      },
+      "required": [
+        "order",
+        "from_key",
+        "to_key",
+        "message"
+      ],
+      "title": "InterfaceStepDraft",
+      "type": "object"
+    },
+    "LeadDraft": {
+      "additionalProperties": false,
+      "description": "Phase 9b (C9): the plan on one page's lead, the system's synthesis (what we build, with which picks, for how much a month, the one risk that matters), with its claim ids.",
+      "properties": {
+        "text": {
+          "maxLength": 700,
+          "title": "Text",
+          "type": "string"
+        },
+        "claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Claim Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "LeadDraft",
+      "type": "object"
+    },
+    "TaskStepDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 160,
+          "title": "Text",
+          "type": "string"
+        },
+        "hours": {
+          "maximum": 40,
+          "minimum": 0.5,
+          "title": "Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text",
+        "hours"
+      ],
+      "title": "TaskStepDraft",
+      "type": "object"
+    },
+    "TaskStepsDraft": {
+      "additionalProperties": false,
+      "description": "Phase 9b (C8): two to four concrete sub-steps with effort for one task of the plan.",
+      "properties": {
+        "task_key": {
+          "maxLength": 60,
+          "title": "Task Key",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/TaskStepDraft"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "task_key",
+        "steps"
+      ],
+      "title": "TaskStepsDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9b (C8, C9): enrich.v2, the planner enrichment with the lead and the tasks' sub-steps; EnrichmentOut (version 1) stays for stored runs.",
+  "properties": {
+    "entities": {
+      "items": {
+        "$ref": "#/$defs/EntityDraft"
+      },
+      "maxItems": 8,
+      "title": "Entities",
+      "type": "array"
+    },
+    "interfaces": {
+      "items": {
+        "$ref": "#/$defs/InterfaceDraft"
+      },
+      "maxItems": 8,
+      "title": "Interfaces",
+      "type": "array"
+    },
+    "component_relations": {
+      "items": {
+        "$ref": "#/$defs/ComponentRelationDraft"
+      },
+      "maxItems": 12,
+      "title": "Component Relations",
+      "type": "array"
+    },
+    "lead": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LeadDraft"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "task_steps": {
+      "items": {
+        "$ref": "#/$defs/TaskStepsDraft"
+      },
+      "maxItems": 20,
+      "title": "Task Steps",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "EnrichmentOutV2",
+  "type": "object"
+}

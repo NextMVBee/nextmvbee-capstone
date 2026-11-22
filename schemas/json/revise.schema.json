@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "Freshness": {
+      "enum": [
+        "volatile",
+        "policy",
+        "technical",
+        "stable"
+      ],
+      "title": "Freshness",
+      "type": "string"
+    },
+    "QueryDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 200,
+          "title": "Text",
+          "type": "string"
+        },
+        "decision_subject": {
+          "title": "Decision Subject",
+          "type": "string"
+        },
+        "target_fact": {
+          "maxLength": 200,
+          "title": "Target Fact",
+          "type": "string"
+        },
+        "include_domains": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Include Domains",
+          "type": "array"
+        },
+        "recency_days": {
+          "anyOf": [
+            {
+              "maximum": 3650,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recency Days"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness",
+          "default": "technical"
+        }
+      },
+      "required": [
+        "text",
+        "decision_subject",
+        "target_fact"
+      ],
+      "title": "QueryDraft",
+      "type": "object"
+    },
+    "QuestionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 300,
+          "title": "Text",
+          "type": "string"
+        },
+        "why_blocking": {
+          "maxLength": 300,
+          "title": "Why Blocking",
+          "type": "string"
+        },
+        "requirement_key": {
+          "title": "Requirement Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "why_blocking",
+        "requirement_key"
+      ],
+      "title": "QuestionDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decision_ids_to_redo": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Decision Ids To Redo",
+      "type": "array"
+    },
+    "reuse_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reuse Claim Ids",
+      "type": "array"
+    },
+    "new_queries": {
+      "items": {
+        "$ref": "#/$defs/QueryDraft"
+      },
+      "maxItems": 4,
+      "title": "New Queries",
+      "type": "array"
+    },
+    "change_summary": {
+      "maxLength": 600,
+      "title": "Change Summary",
+      "type": "string"
+    },
+    "scope_questions": {
+      "items": {
+        "$ref": "#/$defs/QuestionDraft"
+      },
+      "maxItems": 2,
+      "title": "Scope Questions",
+      "type": "array"
+    },
+    "consistency_flags": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Consistency Flags",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "decision_ids_to_redo",
+    "reuse_claim_ids",
+    "change_summary"
+  ],
+  "title": "RevisionOut",
+  "type": "object"
+}

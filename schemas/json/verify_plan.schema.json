@@ -1,0 +1,89 @@
+{
+  "$defs": {
+    "VerificationCheckDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "maxLength": 200,
+          "title": "Check",
+          "type": "string"
+        },
+        "how": {
+          "maxLength": 600,
+          "title": "How",
+          "type": "string"
+        },
+        "pass_rule": {
+          "maxLength": 300,
+          "title": "Pass Rule",
+          "type": "string"
+        },
+        "cost": {
+          "maxLength": 120,
+          "title": "Cost",
+          "type": "string"
+        },
+        "requirement_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requirement Id"
+        },
+        "risk": {
+          "anyOf": [
+            {
+              "maxLength": 300,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Risk"
+        }
+      },
+      "required": [
+        "check",
+        "how",
+        "pass_rule",
+        "cost"
+      ],
+      "title": "VerificationCheckDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Phase 9a (D-A45): verify_plan.v1, the verification plan of a plan version.",
+  "properties": {
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/VerificationCheckDraft"
+      },
+      "maxItems": 10,
+      "title": "Checks",
+      "type": "array"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    }
+  },
+  "title": "VerificationPlanOut",
+  "type": "object"
+}
